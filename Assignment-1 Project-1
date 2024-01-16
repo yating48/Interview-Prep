@@ -1,0 +1,65 @@
+class BrowserHistory {
+public:
+    vector<string>v;
+    int i=0;
+    BrowserHistory(string homepage) 
+    {
+        v.push_back(homepage);
+    }
+    
+    void visit(string url) 
+    {
+        if(i==v.size()-1)
+        {
+             v.push_back(url);
+             i++;
+        }
+        else if(i==v.size()-2)
+        {
+            v[++i]=url;
+            //v.push_back("-1");
+               
+        }
+        else {
+             v[++i]=url;
+             
+            v[i+1]="-1";
+        }
+    }
+    
+    string back(int steps) 
+    {
+        i=max(i-steps,0);
+        return v[i];
+        
+    }
+    string forward(int steps) 
+    {
+        // 1 2 3 9 -1  7 
+        int j=0;
+        while(j<steps)
+        {
+        if(i==v.size()-1)
+        {
+             return v[i];
+        }
+        else if(v[i+1]!="-1")
+        {
+            return v[i];
+        }
+        cout<<i<<endl;
+     i++;
+     j++;
+        }
+
+        return v[i];
+    }
+};
+
+/**
+ * Your BrowserHistory object will be instantiated and called as such:
+ * BrowserHistory* obj = new BrowserHistory(homepage);
+ * obj->visit(url);
+ * string param_2 = obj->back(steps);
+ * string param_3 = obj->forward(steps);
+ */
